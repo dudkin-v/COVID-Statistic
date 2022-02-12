@@ -1,8 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
-import covidStatisticReducer from "./covidStatisticSlice";
+import {applyMiddleware, combineReducers, createStore} from "@reduxjs/toolkit";
+import thunk from "redux-thunk";
+import countries from "./countries/reduser";
 
-export default configureStore({
-  reducer: {
-    countries: covidStatisticReducer(),
-  },
+const rootReducer = combineReducers({
+   countries,
 });
+
+export default createStore(rootReducer, applyMiddleware(thunk));

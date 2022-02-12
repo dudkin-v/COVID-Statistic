@@ -1,0 +1,20 @@
+table {
+    width: 100%;
+}
+
+thead > tr {
+    color: #ffffff;
+    background: #2196F3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+td{
+    padding: 26px 23px;
+}
+
+td:first-child {
+    padding-left: 30px;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
