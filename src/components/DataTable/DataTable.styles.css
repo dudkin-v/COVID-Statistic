@@ -1,20 +1,26 @@
 table {
-    width: 100%;
+  width: 100%;
+    border-collapse: separate;
+    border-spacing: 1px 20px;
 }
 
 thead > tr {
-    color: #ffffff;
-    background: #2196F3;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  background: #2196f3;
 }
 
-td{
-    padding: 26px 23px;
+td {
+  padding: 26px 23px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 td:first-child {
-    padding-left: 30px;
-    border-bottom-left-radius: 20px;
-    border-top-left-radius: 20px;
+  padding-left: 30px;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
 }
 
+td:last-child {
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
+}
