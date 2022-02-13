@@ -1,40 +1,30 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import { fetchCountriesStatistic } from "./store/countries/thunk";
 
 import { Header } from "./components/Header";
 import { DataTable } from "./components/DataTable";
+import { Error } from "./components/Error";
 
 import "./App.css";
 
 const App = () => {
   const dispatch = useDispatch();
-  const loading = useSelector((rootStore) => rootStore.countries.loading);
   const error = useSelector((rootStore) => rootStore.countries.error);
 
-  useEffect(() => {
-    dispatch(fetchCountriesStatistic());
-  }, []);
+  const fetchStatistic = () => dispatch(fetchCountriesStatistic());
 
-  console.log(error);
+  useEffect(fetchStatistic, []);
 
   return (
     <div className="app">
       <Header />
-      {loading ? <h2>Loading</h2> : null}
       {error ? (
-        <div>
-          <h2>{error}</h2>
-          <button
-            type="button"
-            onClick={() => dispatch(fetchCountriesStatistic())}
-          >
-            RETRY
-          </button>
-        </div>
-      ) : null}
-      <DataTable />
+        <Error errorMessage={error} onRetry={fetchStatistic} />
+      ) : (
+        <DataTable />
+      )}
     </div>
   );
 };
