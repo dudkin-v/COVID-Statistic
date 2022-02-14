@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { fetchCountriesStatistic } from "./store/countries/thunk";
 
@@ -11,19 +11,35 @@ import "./App.css";
 
 const App = () => {
   const dispatch = useDispatch();
+  const statistic = useSelector((rootStore) => rootStore.countries.statistic);
   const error = useSelector((rootStore) => rootStore.countries.error);
+  const [searchCountry, setSearchCountry] = useState("");
 
   const fetchStatistic = () => dispatch(fetchCountriesStatistic());
 
   useEffect(fetchStatistic, []);
 
+  const handleSearch = (event) => {
+    setSearchCountry(event.target.value);
+  };
+
   return (
     <div className="app">
-      <Header />
+      <Header onSearch={handleSearch} />
       {error ? (
         <Error errorMessage={error} onRetry={fetchStatistic} />
       ) : (
-        <DataTable />
+        <DataTable
+          statistic={
+            searchCountry
+              ? statistic.filter((country) =>
+                  country.Country.toLowerCase().startsWith(
+                    searchCountry.toLowerCase()
+                  )
+                )
+              : statistic
+          }
+        />
       )}
     </div>
   );
