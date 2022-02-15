@@ -2,13 +2,29 @@ import PropTypes from "prop-types";
 
 import "./DataTable.styles.css";
 
-const DataTable = ({ statistic, showModal }) => (
+const DataTable = ({ statistic, showModal, onSort }) => (
   <table className="data-table">
     <thead>
       <tr>
         <td>№</td>
-        <td>Country</td>
-        <td>Total Confirment</td>
+        <td
+          className="sort-btn"
+          role="button"
+          aria-pressed="false"
+          tabIndex={0}
+          onClick={onSort("Country")}
+        >
+          Country
+        </td>
+        <td
+          className="sort-btn"
+          role="button"
+          aria-pressed="false"
+          tabIndex={0}
+          onClick={onSort("TotalConfirmed")}
+        >
+          Total Confirmed
+        </td>
       </tr>
     </thead>
     <tbody>
@@ -37,6 +53,7 @@ DataTable.propTypes = {
     }).isRequired
   ).isRequired,
   showModal: PropTypes.func.isRequired,
+  onSort: PropTypes.func.isRequired,
 };
 
 export default DataTable;

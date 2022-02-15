@@ -4,13 +4,22 @@ table {
     border-spacing: 1px 20px;
 }
 
+tr {
+  width: 100%;
+}
+
 thead > tr {
   color: #ffffff;
   background: #2196f3;
 }
 
+tbody > tr {
+  cursor: pointer;
+  outline: none;
+}
+
 td {
-  padding: 26px 23px;
+  padding: 18px 23px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -23,4 +32,14 @@ td:first-child {
 td:last-child {
   border-bottom-right-radius: 20px;
   border-top-right-radius: 20px;
+  width: 30%;
+}
+
+td:nth-child(2) {
+  width: 60%;
+}
+
+.sort-btn {
+  cursor: pointer;
+  outline: none;
 }

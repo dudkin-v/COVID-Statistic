@@ -23,10 +23,14 @@ const App = () => {
     TotalRecovered: 0,
   });
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [descending, setDescending] = useState(false);
+  const countries = searchCountry
+    ? statistic.filter((country) =>
+        country.Country.toLowerCase().startsWith(searchCountry.toLowerCase())
+      )
+    : statistic;
 
   const fetchStatistic = () => dispatch(fetchCountriesStatistic());
-
-  useEffect(fetchStatistic, []);
 
   const handleSearch = (event) => {
     setSearchCountry(event.target.value);
@@ -41,11 +45,19 @@ const App = () => {
     setModalIsOpen((PrevModalIsOpen) => !PrevModalIsOpen);
   };
 
-  const countries = searchCountry
-    ? statistic.filter((country) =>
-        country.Country.toLowerCase().startsWith(searchCountry.toLowerCase())
-      )
-    : statistic;
+  const handleSort = (value) => () => {
+    setDescending(!descending);
+    if (descending) {
+      statistic.sort((prevCountry, nextCountry) =>
+        prevCountry[value] > nextCountry[value] ? 1 : -1
+      );
+    } else
+      statistic.sort((prevCountry, nextCountry) =>
+        prevCountry[value] < nextCountry[value] ? 1 : -1
+      );
+  };
+
+  useEffect(fetchStatistic, []);
 
   return (
     <div className="app">
@@ -53,7 +65,11 @@ const App = () => {
       {error ? (
         <Error errorMessage={error} onRetry={fetchStatistic} />
       ) : (
-        <DataTable statistic={countries} showModal={handleClick} />
+        <DataTable
+          statistic={countries}
+          showModal={handleClick}
+          onSort={handleSort}
+        />
       )}
       <ModalWindow
         country={modalData}
