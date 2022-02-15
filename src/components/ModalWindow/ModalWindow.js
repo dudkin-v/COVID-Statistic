@@ -8,9 +8,9 @@ const ModalWindow = ({ country, modalIsOpen, onClose }) => (
     role="button"
     aria-pressed="false"
     tabIndex={0}
-    onClick={onClose}
+    onClick={onClose()}
   >
-    <div className="modal">
+    <div className="modal" onClick={(e) => e.stopPropagation()}>
       <h3 className="modal-heading">{country.Country}</h3>
       <div className="modal-description">
         <div className="description-icons">
@@ -34,7 +34,7 @@ const ModalWindow = ({ country, modalIsOpen, onClose }) => (
         </div>
         </div>
       </div>
-      <button className="close-btn" type="button" onClick={() => onClose}>
+      <button className="close-btn" type="button" onClick={onClose()}>
         OK
       </button>
     </div>

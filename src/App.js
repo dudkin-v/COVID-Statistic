@@ -41,7 +41,7 @@ const App = () => {
     setModalIsOpen((prevModalState) => !prevModalState);
   };
 
-  const handleClose = () => {
+  const handleClose = () => () => {
     setModalIsOpen((PrevModalIsOpen) => !PrevModalIsOpen);
   };
 
