@@ -14,6 +14,7 @@ const App = () => {
   const dispatch = useDispatch();
   const statistic = useSelector((rootStore) => rootStore.countries.statistic);
   const error = useSelector((rootStore) => rootStore.countries.error);
+
   const [searchCountry, setSearchCountry] = useState("");
   const [modalData, setModalData] = useState({
     Country: "",
@@ -40,24 +41,19 @@ const App = () => {
     setModalIsOpen((PrevModalIsOpen) => !PrevModalIsOpen);
   };
 
+  const countries = searchCountry
+    ? statistic.filter((country) =>
+        country.Country.toLowerCase().startsWith(searchCountry.toLowerCase())
+      )
+    : statistic;
+
   return (
     <div className="app">
       <Header onSearch={handleSearch} />
       {error ? (
         <Error errorMessage={error} onRetry={fetchStatistic} />
       ) : (
-        <DataTable
-          statistic={
-            searchCountry
-              ? statistic.filter((country) =>
-                  country.Country.toLowerCase().startsWith(
-                    searchCountry.toLowerCase()
-                  )
-                )
-              : statistic
-          }
-          showModal={handleClick}
-        />
+        <DataTable statistic={countries} showModal={handleClick} />
       )}
       <ModalWindow
         country={modalData}
