@@ -6,6 +6,7 @@ import { fetchCountriesStatistic } from "./store/countries/thunk";
 import { Header } from "./components/Header";
 import { DataTable } from "./components/DataTable";
 import { Error } from "./components/Error";
+import { ModalWindow } from "./components/ModalWindow";
 
 import "./App.css";
 
@@ -14,6 +15,13 @@ const App = () => {
   const statistic = useSelector((rootStore) => rootStore.countries.statistic);
   const error = useSelector((rootStore) => rootStore.countries.error);
   const [searchCountry, setSearchCountry] = useState("");
+  const [modalData, setModalData] = useState({
+    Country: "",
+    TotalConfirmed: 0,
+    TotalDeaths: 0,
+    TotalRecovered: 0,
+  });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const fetchStatistic = () => dispatch(fetchCountriesStatistic());
 
@@ -21,6 +29,15 @@ const App = () => {
 
   const handleSearch = (event) => {
     setSearchCountry(event.target.value);
+  };
+
+  const handleClick = (id) => () => {
+    setModalData(statistic.find((country) => country.ID === id));
+    setModalIsOpen((prevModalState) => !prevModalState);
+  };
+
+  const handleClose = () => {
+    setModalIsOpen((PrevModalIsOpen) => !PrevModalIsOpen);
   };
 
   return (
@@ -39,8 +56,14 @@ const App = () => {
                 )
               : statistic
           }
+          showModal={handleClick}
         />
       )}
+      <ModalWindow
+        country={modalData}
+        modalIsOpen={modalIsOpen}
+        onClose={handleClose}
+      />
     </div>
   );
 };

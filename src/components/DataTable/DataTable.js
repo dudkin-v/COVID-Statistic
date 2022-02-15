@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 import "./DataTable.styles.css";
 
-const DataTable = ({ statistic }) => (
+const DataTable = ({ statistic, showModal }) => (
   <table className="data-table">
     <thead>
       <tr>
@@ -13,7 +13,13 @@ const DataTable = ({ statistic }) => (
     </thead>
     <tbody>
       {statistic.map((country, index) => (
-        <tr key={country.ID}>
+        <tr
+          key={country.ID}
+          role="button"
+          aria-pressed="false"
+          tabIndex={index + 1}
+          onClick={showModal(country.ID)}
+        >
           <td>{index + 1}</td>
           <td>{country.Country}</td>
           <td>{country.TotalConfirmed}</td>
@@ -30,6 +36,7 @@ DataTable.propTypes = {
       TotalConfirmed: PropTypes.number.isRequired,
     }).isRequired
   ).isRequired,
+  showModal: PropTypes.func.isRequired,
 };
 
 export default DataTable;
