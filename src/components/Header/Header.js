@@ -15,8 +15,6 @@ const Header = ({ onSearch }) => (
         placeholder="Search..."
         onChange={onSearch}
       />
-      {/* eslint-disable-next-line global-require */}
-      <img className="search-icon" src={require("./search-icon.png")} alt="#" />
     </div>
   </header>
 );
